@@ -15,6 +15,15 @@ public class Canvas {
         this.borderedWidth = width + 2;
         this.borderedHeight = height + 2;
         initializeMatrix();
+        draw();
+    }
+
+    public int getDrawableWidth() {
+        return borderedWidth - 2;
+    }
+
+    public int getDrawableHeight() {
+        return borderedHeight - 2;
     }
 
     private void initializeMatrix() {
@@ -33,7 +42,7 @@ public class Canvas {
         }
     }
 
-    public void draw() {
+    private void draw() {
         for (int i = 0; i < borderedHeight; i++) {
             for (int j = 0; j < borderedWidth; j++) {
                 System.out.print(coloredMatrix[i][j]);
@@ -44,6 +53,7 @@ public class Canvas {
 
     public void addDrawable(final Drawable line) {
         line.getPoints().forEach(point -> coloredMatrix[point.getY()][point.getX()] = 'x');
+        draw();
     }
 
     public void paint(final Point point, final char newColor) {
@@ -52,6 +62,7 @@ public class Canvas {
             return;
         }
         paint(currentColor, newColor, point.getX(), point.getY());
+        draw();
     }
 
     private void paint(final char currentColor, final char newColor, final int x, final int y) {
